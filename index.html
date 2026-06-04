@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Happy Birthday</title>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Happy Birthday">
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <meta name="keywords" content="Birthday, Happy">
+  <meta property="og:type" content="E-Greeting" />
+  <meta property="og:image" content="favicon.ico" />
+  <meta property="og:description" content="Wish you a very Happy Birthday">
+
+  <!-- Viewport (zoom-friendly) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Google Fonts: Fredoka One + Baloo 2 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap grid -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+  <!-- Our stylesheet -->
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+  <!-- Cake CSS (inline — compiled from cake.less) -->
+  <style>
+    /* ── CAKE POSITION ── */
+    .cake {
+      position: absolute;
+      display: none;
+      left: 50%;
+      margin-left: -150px;
+      width: 300px;
+      height: 300px;
+    }
+    .cake::after {
+      background: #ffffff;
+      border-radius: 300px;
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 300px;
+      height: 6px;
+    }
+
+    /* ── CANDLE ── */
+    .velas {
+      background: #ffffff;
+      border-radius: 100%;
+      position: absolute;
+      top: 50%; left: 50%;
+      margin-left: -7.5px;
+      margin-top: -25px;
+      width: 15px;
+      height: 50px;
+    }
+    .velas::after, .velas::before {
+      background: rgba(232, 97, 122, 0.45);
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 6.667px;
+    }
+    .velas::after  { top: 25%; left: 0; }
+    .velas::before { top: 45%; left: 0; }
+
+    /* ── FLAME ── */
+    .fuego {
+      display: none;
+      border-radius: 100%;
+      box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+      position: absolute;
+      top: -12px; left: 50%;
+      margin-left: -10px;
+      width: 20px;
+      height: 37.5px;
+    }
+    .fuego:nth-child(1) { animation: fuego 2s   infinite; }
+    .fuego:nth-child(2) { animation: fuego 1.5s infinite; }
+    .fuego:nth-child(3) { animation: fuego 1s   infinite; }
+    .fuego:nth-child(4) { animation: fuego 0.5s infinite; }
+    .fuego:nth-child(5) { animation: fuego 0.2s infinite; }
+    @keyframes fuego {
+      0%   { background: rgba(254,248,97,.5); transform: translateY(0)    scale(1); }
+      50%  { background: rgba(255,50,0,.1);   transform: translateY(-60px) scale(0); }
+      100% { background: rgba(254,248,97,.5); transform: translateY(0)    scale(1); }
+    }
+
+    /* ── FROSTING ── */
+    .cobertura {
+      background: #F4A0B0;
+      border-radius: 150px;
+      position: absolute;
+      top: 60%; left: 50%;
+      margin-left: -83.333px;
+      margin-top: -15px;
+      width: 166.667px;
+      height: 37.5px;
+      z-index: 10;
+    }
+    .cobertura::after, .cobertura::before {
+      background: #F4A0B0;
+      border-radius: 300px;
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 30px;
+    }
+    .cobertura::after  { top: 20px; right: 42.857px; }
+    .cobertura::before { top: 30px; right: 27.273px; }
+
+    /* ── CAKE BODY ── */
+    .bizcocho {
+      background: #6d3826;
+      position: absolute;
+      bottom: 0; left: 50%;
+      margin-left: -75px;
+      width: 150px;
+      height: 100px;
+    }
+    .bizcocho::after, .bizcocho::before {
+      background: rgba(253, 236, 234, 0.55);
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 15px;
+    }
+    .bizcocho::after  { top: 30%; left: 0; }
+    .bizcocho::before { top: 60%; left: 0; }
+
+    /* ── ALBUM PHOTOS ── */
+    .album-photo {
+      display: none;
+      position: absolute;
+      width: 300px;
+      height: auto;
+      border: 5px solid #1a1a2e;
+      box-shadow: 6px 6px 0 #E8617A;
+      border-radius: 16px;
+      transition: transform 0.3s ease;
+    }
+    .album-photo:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 10; }
+    .album-left-1  { top: 30px;  left:  50px; transform: rotate(-5deg); }
+    .album-left-2  { top: 205px; left:  70px; transform: rotate(4deg);  }
+    .album-right-1 { top: 30px;  right: 50px; transform: rotate(5deg);  }
+    .album-right-2 { top: 205px; right: 70px; transform: rotate(-4deg); }
+
+    /* ── PROFILE IMG ── */
+    .profile-img {
+      position: absolute;
+      bottom: 30px; right: -170px;
+      width: 150px; height: 150px;
+      border: 5px solid #1a1a2e;
+      box-shadow: 5px 5px 0 #E8617A;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    /* ── CAKE MOBILE FIXES ── */
+    @media (max-width: 768px) {
+      /* Profile image: bring it inside view — centred below the cake */
+      .profile-img {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -140px;
+        top: auto;
+        width: 120px;
+        height: 120px;
+      }
+      /* Extra height so the repositioned image isn't clipped */
+      .cake-cover {
+        min-height: 500px;
+      }
+    }
+
+    /* Very small phones: shrink the cake itself so it doesn't overflow */
+    @media (max-width: 340px) {
+      .cake {
+        width: 260px;
+        margin-left: -130px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loading screen -->
+  <div class="loading"></div>
+
+  <!-- Fireworks canvas (shown during Happy Birthday step) -->
+  <canvas id="fireworks-canvas"
+    style="display:none;position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:500;">
+  </canvas>
+
+
+  <!-- Audio -->
+  <audio class="song" controls loop>
+    <source src="assets/audio/hbd.mp3">
+  </audio>
+
+  <!-- Balloons (floating letters H·B·D·B·A·B·Y) -->
+  <div class="balloons text-center" id="b1"><h2 style="color:#E8617A;">H</h2></div>
+  <div class="balloons text-center" id="b2"><h2 style="color:#1a1a2e;">B</h2></div>
+  <div class="balloons text-center" id="b3"><h2 style="color:#E8617A;">D</h2></div>
+  <div class="balloons text-center" id="b4"><h2 style="color:#1a1a2e;">D</h2></div>
+  <div class="balloons text-center" id="b5"><h2 style="color:#E8617A;">O</h2></div>
+  <div class="balloons text-center" id="b6"><h2 style="color:#1a1a2e;">A</h2></div>
+  <div class="balloons text-center" id="b7"><h2 style="color:#E8617A;">A</h2></div>
+
+  <img src="assets/images/Balloon-Border.png" width="100%" class="balloon-border" alt="">
+
+  <!-- ══ DECORATIVE SPARKLES (fixed, always visible) ══ -->
+  <span class="sparkle-fixed" style="top:12%;left:6%;font-size:18px;animation-duration:2.2s;animation-delay:0s;">✦</span>
+  <span class="sparkle-fixed" style="top:22%;right:8%;font-size:13px;animation-duration:2.8s;animation-delay:.5s;">✦</span>
+  <span class="sparkle-fixed" style="top:55%;left:4%;font-size:15px;animation-duration:2.0s;animation-delay:.9s;">✦</span>
+  <span class="sparkle-fixed" style="top:70%;right:5%;font-size:11px;animation-duration:3.1s;animation-delay:.3s;">✦</span>
+  <span class="sparkle-fixed" style="top:38%;left:10%;font-size:10px;animation-duration:2.5s;animation-delay:1.1s;">✦</span>
+  <span class="sparkle-fixed" style="top:80%;left:15%;font-size:16px;animation-duration:1.9s;animation-delay:.7s;">✦</span>
+
+  <!-- ══ MAIN CONTAINER ══ -->
+  <div class="container">
+
+    <!-- ── BUNTING ── -->
+    <div class="bunting-row">
+      <svg class="bunting-svg" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g style="animation:buntingSway 3s ease-in-out infinite;transform-origin:600px 4px;">
+          <!-- string -->
+          <path d="M0,5 Q150,22 300,6 Q450,22 600,6 Q750,22 900,6 Q1050,22 1200,6"
+                stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
+          <!-- flags: alternating coral / light-pink -->
+          <polygon points="24,6  44,6  34,28"   fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="72,13 92,13 82,35"   fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="120,6 140,6 130,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="172,13 192,13 182,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="222,6 242,6 232,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="272,13 292,13 282,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="322,6 342,6 332,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="374,13 394,13 384,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="424,6 444,6 434,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="476,13 496,13 486,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="526,6 546,6 536,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="576,13 596,13 586,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="626,6 646,6 636,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="678,13 698,13 688,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="728,6 748,6 738,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="780,13 800,13 790,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="830,6 850,6 840,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="882,13 902,13 892,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="932,6 952,6 942,28"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="984,13 1004,13 994,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="1034,6 1054,6 1044,28" fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="1086,13 1106,13 1096,35" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+          <polygon points="1136,6 1156,6 1146,28" fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ── BULB ROW ── -->
+    <div class="row" style="margin-top:16px;">
+      <div class="col-md-2 col-xs-2 bulb-holder"><div class="bulb" id="bulb_yellow"></div></div>
+      <div class="col-md-2 col-xs-2 bulb-holder"><div class="bulb" id="bulb_red"></div></div>
+      <div class="col-md-2 col-xs-2 bulb-holder"><div class="bulb" id="bulb_blue"></div></div>
+      <div class="col-md-2 col-xs-2 bulb-holder"><div class="bulb" id="bulb_green"></div></div>
+      <div class="col-md-2 col-xs-2 bulb-holder"><div class="bulb" id="bulb_pink"></div></div>
+      <div class="col-md-2 col-xs-2 bulb-holder"><div class="bulb" id="bulb_orange"></div></div>
+    </div>
+
+    <!-- ── BANNER ── -->
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <!-- <img src="assets/images/banner.png" class="bannar" alt="Happy Birthday Banner"> -->
+      </div>
+    </div>
+
+    <!-- ══ DECORATION SCENE — shown during "Let's Decorate" ══ -->
+    <div class="decoration-scene">
+      <div class="deco-card">
+
+        <!-- Card bunting -->
+        <svg class="deco-bunting" viewBox="0 0 900 72" preserveAspectRatio="none">
+          <g style="animation:buntingSway 3s ease-in-out infinite;transform-origin:450px 5px;">
+            <path d="M0,6 Q110,26 220,8 Q340,26 460,8 Q580,26 700,8 Q810,24 900,8"
+                  stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
+            <polygon points="18,7 38,7 28,30"    fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="55,13 75,13 65,36"   fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="93,7 113,7 103,30"   fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="133,15 153,15 143,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="172,8 192,8 182,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="212,15 232,15 222,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="256,8 276,8 266,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="298,15 318,15 308,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="340,8 360,8 350,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="382,15 402,15 392,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="425,8 445,8 435,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="468,15 488,15 478,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="512,8 532,8 522,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="555,15 575,15 565,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="598,8 618,8 608,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="640,15 660,15 650,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="682,8 702,8 692,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="725,15 745,15 735,38" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="768,8 788,8 778,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="810,14 830,14 820,37" fill="#F4A0B0" stroke="#1a1a2e" stroke-width=".9"/>
+            <polygon points="852,8 872,8 862,31"  fill="#E8617A" stroke="#1a1a2e" stroke-width=".9"/>
+          </g>
+        </svg>
+
+        <!-- ── LEFT SIDE ── -->
+        <div class="deco-left">
+          <svg class="deco-party-hat" viewBox="0 0 56 66" fill="none">
+            <polygon points="28,2 3,62 53,62" fill="#E8617A" stroke="#1a1a2e" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="19" cy="33" r="3.5" fill="white" opacity=".62"/>
+            <circle cx="31" cy="20" r="3"   fill="white" opacity=".62"/>
+            <circle cx="23" cy="48" r="2.5" fill="white" opacity=".62"/>
+            <circle cx="37" cy="43" r="3"   fill="white" opacity=".62"/>
+            <circle cx="14" cy="52" r="2"   fill="white" opacity=".62"/>
+            <ellipse cx="28" cy="62" rx="25" ry="6" fill="#E8617A" stroke="#1a1a2e" stroke-width="2"/>
+            <circle cx="28" cy="6" r="6" fill="#1a1a2e"/>
+            <circle cx="28" cy="6" r="4" fill="#3a3a7a"/>
+            <circle cx="28" cy="3" r="2.2" fill="white" opacity=".8"/>
+          </svg>
+
+          <div class="deco-text-block">
+            <span class="deco-happy-text">Happy</span>
+            <span class="deco-birthday-text">Birthday</span>
+          </div>
+
+          <!-- ↓ CHANGE DATE HERE ↓ -->
+          <div class="deco-date-badge">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="white"><polygon points="7,0 8.8,5 14,5.1 9.6,8.2 11.3,13.5 7,10.4 2.7,13.5 4.4,8.2 0,5.1 5.2,5"/></svg>
+            05 June 
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="white"><polygon points="7,0 8.8,5 14,5.1 9.6,8.2 11.3,13.5 7,10.4 2.7,13.5 4.4,8.2 0,5.1 5.2,5"/></svg>
+          </div>
+        </div>
+
+        <!-- ── RIGHT SIDE ── -->
+        <div class="deco-right">
+
+          <!-- Balloon top-left -->
+          <svg width="52" height="86" viewBox="0 0 52 86"
+               style="position:absolute;top:10px;left:22px;animation:balloonFloat 3s ease-in-out infinite;">
+            <ellipse cx="26" cy="28" rx="21" ry="26" fill="#F4A0B0" stroke="#1a1a2e" stroke-width="1.5"/>
+            <ellipse cx="18" cy="19" rx="7"  ry="9"  fill="white" opacity=".32"/>
+            <path d="M26,54 Q24,63 26,73 Q28,80 26,84" stroke="#1a1a2e" stroke-width="1.4" fill="none"/>
+          </svg>
+
+          <!-- Bear in circle -->
+          <div class="deco-bear-wrap">
+            <div class="deco-bear-circle">
+              <svg class="deco-bear-svg" viewBox="0 0 292 292" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="148" cy="182" rx="106" ry="96" fill="#9ab0c0" opacity=".38"/>
+                <ellipse cx="148" cy="236" rx="64"  ry="55" fill="#556070" stroke="#1a1a2e" stroke-width="2"/>
+                <circle cx="82"  cy="94" r="27" fill="#556070" stroke="#1a1a2e" stroke-width="2"/>
+                <circle cx="82"  cy="94" r="16" fill="#6e8090"/>
+                <circle cx="212" cy="94" r="27" fill="#556070" stroke="#1a1a2e" stroke-width="2"/>
+                <circle cx="212" cy="94" r="16" fill="#6e8090"/>
+                <circle cx="148" cy="142" r="72" fill="#556070" stroke="#1a1a2e" stroke-width="2.5"/>
+                <ellipse cx="148" cy="242" rx="36" ry="30" fill="#ecdcc8"/>
+                <circle cx="107" cy="152" r="16" fill="#e8617a" opacity=".4"/>
+                <circle cx="189" cy="152" r="16" fill="#e8617a" opacity=".4"/>
+                <path d="M116,135 Q127,124 138,135" stroke="#1a1a2e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                <path d="M158,135 Q169,124 180,135" stroke="#1a1a2e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                <ellipse cx="148" cy="155" rx="9" ry="6" fill="#1a1a2e"/>
+                <path d="M136,165 Q148,176 160,165" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <circle cx="131" cy="75" r="9"  fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <circle cx="148" cy="70" r="10" fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <circle cx="165" cy="75" r="9"  fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <ellipse cx="138" cy="60" rx="10" ry="6.5" fill="#3d4268" stroke="#1a1a2e" stroke-width="1.2" transform="rotate(-15 138 60)"/>
+                <ellipse cx="158" cy="60" rx="10" ry="6.5" fill="#3d4268" stroke="#1a1a2e" stroke-width="1.2" transform="rotate(15 158 60)"/>
+                <circle cx="148" cy="61" r="5.5" fill="#4a537a" stroke="#1a1a2e" stroke-width="1"/>
+                <circle cx="148" cy="61" r="3"   fill="#6070a8"/>
+                <ellipse cx="78"  cy="220" rx="20" ry="34" fill="#556070" stroke="#1a1a2e" stroke-width="2" transform="rotate(-16 78 220)"/>
+                <circle cx="62"  cy="248" r="14" fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <path d="M54,247 Q62,240 70,247" stroke="#1a1a2e" stroke-width="1" fill="none"/>
+                <ellipse cx="220" cy="205" rx="20" ry="34" fill="#556070" stroke="#1a1a2e" stroke-width="2" transform="rotate(25 220 205)"/>
+                <circle cx="240" cy="228" r="14" fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <path d="M232,226 Q240,219 248,226" stroke="#1a1a2e" stroke-width="1" fill="none"/>
+                <ellipse cx="118" cy="274" rx="23" ry="13" fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <ellipse cx="178" cy="274" rx="23" ry="13" fill="#556070" stroke="#1a1a2e" stroke-width="1.5"/>
+                <polygon points="197,123 185,142 209,132" fill="#3d4268"/>
+                <ellipse cx="215" cy="104" rx="30" ry="24" fill="#3d4268"/>
+                <path d="M205,100 C205,95 211,92 215,97 C219,92 225,95 225,100
+                         C225,105.5 215,115 215,115 C215,115 205,105.5 205,100 Z" fill="#e8b8b0"/>
+              </svg>
+            </div>
+
+            <!-- Smiley face -->
+            <svg class="deco-smiley" viewBox="0 0 70 70">
+              <circle cx="35" cy="35" r="32" fill="white" stroke="#1a1a2e" stroke-width="3.5"/>
+              <circle cx="24" cy="30" r="4" fill="#1a1a2e"/>
+              <circle cx="46" cy="30" r="4" fill="#1a1a2e"/>
+              <path d="M20,41 Q35,56 50,41" stroke="#1a1a2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+
+            <!-- ↓ CHANGE NAME HERE ↓ -->
+            <div class="deco-name-badge">
+              <svg width="16" height="15" viewBox="0 0 16 15" fill="#ff6b6b">
+                <path d="M8,13 C8,13 1,8 1,4.5 C1,2.5 2.5,1 4,1 C5.5,1 7,2.5 8,4.5 C9,2.5 10.5,1 12,1 C13.5,1 15,2.5 15,4.5 C15,8 8,13 8,13 Z"/>
+              </svg>
+              DOAA
+              <svg width="16" height="15" viewBox="0 0 16 15" fill="#ff6b6b">
+                <path d="M8,13 C8,13 1,8 1,4.5 C1,2.5 2.5,1 4,1 C5.5,1 7,2.5 8,4.5 C9,2.5 10.5,1 12,1 C13.5,1 15,2.5 15,4.5 C15,8 8,13 8,13 Z"/>
+              </svg>
+            </div>
+          </div><!-- /deco-bear-wrap -->
+
+          <!-- Balloon top-right -->
+          <svg width="55" height="90" viewBox="0 0 55 90"
+               style="position:absolute;top:26px;right:82px;animation:balloonFloat 3.6s ease-in-out .6s infinite;">
+            <ellipse cx="27" cy="29" rx="22" ry="27" fill="#F4A0B0" stroke="#1a1a2e" stroke-width="1.5"/>
+            <ellipse cx="19" cy="20" rx="7"  ry="9"  fill="white" opacity=".32"/>
+            <path d="M27,56 Q25,66 27,76 Q29,84 27,88" stroke="#1a1a2e" stroke-width="1.4" fill="none"/>
+          </svg>
+
+          <!-- Balloon bottom-right coral -->
+          <svg width="70" height="108" viewBox="0 0 70 108"
+               style="position:absolute;bottom:44px;right:14px;animation:balloonFloat 4.1s ease-in-out 1.2s infinite;">
+            <ellipse cx="35" cy="37" rx="31" ry="35" fill="#E8617A" stroke="#1a1a2e" stroke-width="1.5"/>
+            <ellipse cx="24" cy="25" rx="9"  ry="11" fill="white" opacity=".28"/>
+            <path d="M35,72 Q33,83 35,94 Q37,102 35,106" stroke="#1a1a2e" stroke-width="1.4" fill="none"/>
+          </svg>
+
+          <!-- Stamp badge -->
+          <svg class="deco-stamp" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="37" fill="#f5d0c8" stroke="#1a1a2e" stroke-width="2.5"/>
+            <circle cx="40" cy="40" r="30" fill="none" stroke="#1a1a2e" stroke-width="1" stroke-dasharray="2.5,2"/>
+            <defs>
+              <path id="deco-ctp-top" d="M16,40 a24,24 0 1,1 48,0"/>
+              <path id="deco-ctp-bot" d="M64,40 a24,24 0 1,1 -48,0"/>
+            </defs>
+            <text font-size="7" font-family="Fredoka One,cursive" fill="#1a1a2e" letter-spacing="1.5">
+              <textPath href="#deco-ctp-top" startOffset="8%">BIRTHDAY</textPath>
+            </text>
+            <text font-size="7" font-family="Fredoka One,cursive" fill="#1a1a2e" letter-spacing="2">
+              <textPath href="#deco-ctp-bot" startOffset="14%">HAPPY</textPath>
+            </text>
+            <path d="M34,38 C34,33.5 39.5,30.5 40,35 C40.5,30.5 46,33.5 46,38
+                     C46,43 40,49 40,49 C40,49 34,43 34,38 Z" fill="#E8617A"/>
+          </svg>
+
+        </div><!-- /deco-right -->
+
+        <!-- Sparkles -->
+        <span class="deco-sparkle" style="top:108px;left:398px;font-size:16px;animation-duration:2.1s;animation-delay:0s;">✦</span>
+        <span class="deco-sparkle" style="top:198px;left:368px;font-size:12px;animation-duration:2.7s;animation-delay:.45s;">✦</span>
+        <span class="deco-sparkle" style="top:308px;left:392px;font-size:14px;animation-duration:2.3s;animation-delay:.9s;">✦</span>
+        <span class="deco-sparkle" style="top:78px;left:258px;font-size:11px;animation-duration:2.6s;animation-delay:.6s;">✦</span>
+        <span class="deco-sparkle" style="top:428px;left:335px;font-size:13px;animation-duration:3s;animation-delay:1.2s;">✦</span>
+        <span class="deco-sparkle" style="top:162px;left:462px;font-size:10px;animation-duration:1.9s;animation-delay:.3s;">✦</span>
+        <span class="deco-sparkle" style="top:52px;left:420px;font-size:10px;animation-duration:2.8s;animation-delay:.15s;">✦</span>
+
+        <!-- Pink blob bottom-right -->
+        <svg class="deco-pink-blob" viewBox="0 0 138 112">
+          <path d="M138,112 C118,90 78,118 54,96 C30,74 4,92 0,112 Z" fill="#E8617A" opacity=".72"/>
+          <path d="M138,112 C132,82 105,104 82,90 C60,76 36,98 22,112 Z" fill="#E8617A"/>
+        </svg>
+
+      </div><!-- /deco-card -->
+    </div><!-- /decoration-scene -->
+
+    <!-- ── CAKE ── -->
+    <div class="row cake-cover">
+      <div class="col-md-12 text-center">
+        <div class="cake">
+          <div class="velas">
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+            <div class="fuego"></div>
+          </div>
+          <div class="cobertura"></div>
+          <img src="assets/images/person.png" class="profile-img" alt="">
+          <div class="bizcocho"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MESSAGE ── -->
+    <div class="row message">
+      <div class="col-md-12">
+        <p>Today is...</p>
+        <p>as beautiful as other days</p>
+        <p>but you realize</p>
+        <p>another year has gone</p>
+        <p>in a blink of the eyes</p>
+        <p><strong>however</strong></p>
+        <p>Do you know..?</p>
+        <p>today is just special</p>
+        <p>so special to you</p>
+        <p>that's why</p>
+        <p>Let's make it...</p>
+        <p>the best celebration ever</p>
+        <p>and let me share...</p>
+        <p>a piece of happiness to you</p>
+        <p>I made all this...</p>
+        <p>as a birthday present to you</p>
+        <p>I wish you all the best</p>
+        <p>May your life be at ease</p>
+        <p>May all your wishes come true</p>
+        <p>Remember</p>
+        <p>your ambitions</p>
+        <p>you live as a free bird...</p>
+        <p>flying in the blue sky</p>
+        <p>Now things are different...</p>
+        <p>real story of your life</p>
+        <p>is just about to begin</p>
+        <p>indeed..</p>
+        <p>but...</p>
+        <p>don't worry</p>
+        <p>because...</p>
+        <p>Allah has your back</p>
+        <p>and</p>
+        <p>this year will be better</p>
+        <p>and I hope</p>
+        <p>you'll find...</p>
+        <p>happiness along the way</p>
+        <p>keep your spirit up</p>
+        <p>enjoy every single moment...</p>
+        <p>that you experience today</p>
+        <p>fill it with your most beautiful smile</p>
+        <p>and make it the best memory..</p>
+        <p>lastly...</p>
+        <p>I'd like to wish you one more time</p>
+        <p>a very happy birthday DOAA ❤️</p>
+      </div>
+    </div>
+
+    <!-- ── CONTROL PANEL ── -->
+    <nav class="navbar navbar-fixed-bottom" role="navigation">
+      <!-- Step-progress dots (decorative — 8 steps) -->
+      <div class="step-track">
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+          <button class="btn btn-primary" id="turn_on">Turn On Lights</button>
+          <button class="btn btn-primary" id="play">Play the Music Buddy</button>
+          <button class="btn btn-primary" id="bannar_coming">Let's Decorate</button>
+          <button class="btn btn-primary" id="balloons_flying">Calm, i got you some Balloons</button>
+          <button class="btn btn-primary" id="cake_fadein">Cake? of course!</button>
+          <button class="btn btn-primary" id="light_candle">Don't forget to Light the Candle</button>
+          <button class="btn btn-primary" id="wish_message">Happy Birthday</button>
+          <button class="btn btn-primary" id="story">A message for you</button>
+        </div>
+      </div>
+    </nav>
+
+  </div><!-- /container -->
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Zoomed photo">
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="js/fireworks.js"></script>
+  <script src="js/effect.js"></script>
+</body>
+</html>
